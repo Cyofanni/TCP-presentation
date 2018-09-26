@@ -1,0 +1,15 @@
+\begin{frame}{Freeze-TCP approach (1)}
+	\begin{itemize}
+	  \item The mobile client should signal any impending disconnection:
+	  \begin{itemize}
+		\item this is done via \textbf{signal strength monitoring};
+		\item after detecting a disconnection:
+		   \begin{enumerate}
+			\item the mobile client advertises a zero window size;
+			\item the sender switch to \textit{ZWP} mode and
+			      doesn't shrink its window.
+		   \end{enumerate}
+	  \end{itemize}
+	\end{itemize}
+
+\end{frame}

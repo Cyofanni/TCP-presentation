@@ -1,0 +1,15 @@
+\begin{frame}{Freeze-TCP approach (2)}
+       \begin{itemize}
+		\item How much in advance of the disconnection should the receiver advertise a window size of zero?
+		\item There should be a \textit{warning period} prior to disconnection.
+		\item They figured out that a sensible choice is the \textit{Round-Trip-Time}:
+	           \begin{enumerate}
+			\item if it is too long, there will be idle time
+			      prior to the disconnection;
+			\item if it is too small, the sender's window could
+			      drop due to packet losses.
+		   \end{enumerate}
+       \end{itemize}
+
+\end{frame}
+

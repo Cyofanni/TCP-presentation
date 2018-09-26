@@ -1,0 +1,141 @@
+***TCP-Probing: Towards an Error Control Schema with Energy and Throughput Performance Gains***
+
+**Abstract
+*Energy efficiency, as well as
+throughput, are becoming service characteristics of
+dominant importance in communication protocols.
+*In this work we propose “grafting”
+two components of strategic significance onto standard
+TCP: a Probing mechanism and an Immediate
+Recovery strategy.
+*Furthermore,
+the enhancements do not damage the end-to-end
+characteristics of the TCP
+
+**Introduction
+*The motivating force driving these modifications
+ignores energy efficiency, which is becoming a
+key performance issue.
+*The key to throughput and energy efficiency
+in a reliable transport protocol is the error control
+mechanism.
+*TCP error-control does have some energy-
+conserving capabilities: in response to segment drops,
+it reduces its window size and therefore conserves
+transmission effort.
+
+*The error-recovery mechanism, however, is not always efficient,
+especially when the error pattern changes since packet
+loss is invariably interpreted by the protocol as
+resulting from congestion.
+*In other words, in the presence of
+infrequent and transient errors, TCP back-off strategy,
+at best, avoids only minor retransmission at the cost of
+unnecessary and significantly-degraded effective
+throughput (“goodput”), and increases in overall
+connection time.
+*Another source of energy wastage comes from the
+protocol’s inability to efficiently monitor network
+conditions without incurring data-segment drops.
+*we propose grafting a “probing” scheme onto
+the basic TCP error-control mechanism. In this scheme,
+a “Probe Cycle” consists of a structured exchange of
+“probe” segments between the sender and receiver.
+*this enables the
+sender to efficiently monitor the network on an end-to-
+end basis, at much less cost in transmission effort (and
+hence energy cost) than would otherwise be expended
+on the (re)transmission of data segments that might not
+have a good chance of getting through during periods
+of degraded network conditions.
+*In the event that persistent error
+conditions are detected, the sender backs off by
+adjusting the congestion window and threshold
+downwards as would standard TCP. On the other hand,
+if the conditions detected indicate only a transient
+random error that did not impact the network's
+effective throughput capacity, the sender could
+immediately resume transmission at a level that makes
+appropriate use of available network bandwidth.
+
+
+**TCP-Probing
+*When a data segment goes missing, the
+sender, instead of retransmitting and adjusting the
+congestion window and threshold, initiates a probe
+cycle during which data transmission is suspended and
+only probe segments are sent.
+*In the event of persistent
+error conditions (e.g. congestion), the duration of the
+probe cycle will be naturally extended and is likely to
+be commensurate with that of the error condition, since
+probe segments will be lost.
+*In the case of random loss, however, the probe
+cycle will complete much more quickly, in proportion
+to the prevailing density of occurrence for the random
+errors.
+*Immediate Recovery
+*if deteriorated network conditions are
+detected at the end of the probe cycle, the sender
+enters Slow Start.
+
+
+**Implementation.
+  - The sender initiates a probe cycle by
+    transmitting a PROBE1 segment to which the receiver
+    immediately responds with a PR1_ACK, upon receipt
+    of which the sender transmits a PROBE2.
+  - The receiver acknowledges this second probing with a PR2_ACK
+    and returns to the ESTAB state
+  - The value in the option extension id number
+    identifies a full exchange of PROBE1, PR1_ACK,
+    PROBE2 and PR2_ACK segments, rather than
+    individual segments within that exchange.
+  - A critical part of the probing mechanism is the
+    decision rules that determine action at the end of the
+    probe cycle.
+  - Upon exiting the probe cycle, the two
+    RTTs measured are compared.
+  - If both lie in the range
+    [best RTT, last RTT], Immediate Recovery is applied.
+    Last RTT is the estimated RTT value current at the
+    time the probe cycle is triggered. Otherwise, the sender
+    enters a Slow Start phase.
+  - measurement timer, used to measure each of the two RTTs from the probe cycle, in turn. 
+*Probing proves to be a more useful device
+than would be sending data that is likely to be dropped,
+on the one hand, or reducing the window size and
+degrading the connection throughput, possibly for no
+good reason, on the other.
+
+
+**Results and Discussion
+*We simulated a fairly low-bandwidth network environment
+since we are primarily interested in heterogeneous
+wired/wireless networks;
+*In conclusion, TCP-Probing outmatches Reno
+and New Reno in aggressive bias when an aggressive
+strategy yields better goodput. It successfully competes
+with Tahoe in being conservative when aggressiveness
+damages goodput. Yet it manages to demonstrate this
+flexible functionality using less transmission effort,
+which is a significant factor for energy expenditure.
+*Nevertheless, a protocol’s potential
+for energy saving may at least be gauged from the
+combination of byte overhead (discussed in the
+preceding section) and time savings achieved.
+
+
+**Open Issues
+*Probing represents a strategy wherein
+transmission effort and time are invested in probe
+cycles in order to determine the nature of prevailing
+error conditions.
+*The problem seems
+to be the unduly conservative decision-making criteria
+whereby Immediate Recovery is entered at the end of
+probing only if both probe-cycle RTTs are less than the
+last estimated RTT. Simply stated, TCP-Probing
+behavior is insufficiently aggressive under the
+circumstances. This is currently the subject of ongoing
+research.

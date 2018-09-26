@@ -1,0 +1,14 @@
+\begin{frame}{Freeze-TCP approach (3)}
+       \begin{itemize}
+                \item A relevant issue: the \textit{ZWP}s are exponentially backed off,
+			so there could be an idle time after a reconnection.
+		\item Trick: soon after the reconnection, the receiver
+		      sends 3 copies of the ACK for the last data segment
+		      it received before the disconnection (\textbf{TR-ACKs}).
+       \end{itemize}
+
+       \begin{figure}
+                \centering\includegraphics[scale=0.3]{freeze-disconn1}
+       \end{figure}
+
+\end{frame}

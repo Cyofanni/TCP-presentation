@@ -1,0 +1,12 @@
+\begin{frame}{Delay-based component design (2)}
+        The number of backlogged packets can
+	be estimated by means of these formulas:
+		\begin{enumerate}
+			\item \texttt{expected = win / baseRTT};
+			\item \texttt{actual = win / RTT};
+			\item \texttt{diff = (expected - actual) * baseRTT}.
+		\end{enumerate}
+	An early congestion is detected if the number of packets in the queue is larger
+	than a fixed threshold $\gamma$ ($diff > \gamma$).
+\end{frame}
+

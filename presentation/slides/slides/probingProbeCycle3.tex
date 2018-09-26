@@ -1,0 +1,16 @@
+\begin{frame}{Probe Cycle (3) - Implementation}
+   \begin{itemize}
+	\item A \textit{measurement timer} is used to measure
+	     the two RTTs from the probe cycle.
+	\item Upon exiting the probe cycle, the two measured RTTs
+	      are compared.
+	      \begin{enumerate}
+		   \item if both lie in the range
+    		   	 \texttt{[best RTT, last RTT]},
+			 \textit{Immediate Recovery} is applied;
+		   \item otherwise, the sender
+    			 enters a \textit{Slow-Start} phase.
+	      \end{enumerate}
+   \end{itemize}
+\end{frame}
+

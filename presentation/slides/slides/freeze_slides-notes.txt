@@ -1,0 +1,96 @@
+***Freeze-TCP: A true end-to-end TCP enhancement mechanism for mobile environments***
+
+**INTRODUCTION
+
+*We present a brief summary of existing results which
+indicates that most schemes require intermediaries (such as base stations)
+to monitor the TCP traffic and actively participate in flow control in order
+to enhance performance. Although these methods simulate end-to-end se-
+mantics, they do not comprise true end-to-end signaling.
+*In this paper we explore the “Freeze-TCP” mechanism which is a true
+end-to-end scheme and does not require the involvement of any interme-
+diaries (such as base stations) for flow control.
+*Changes in TCP code are restricted to the mobile client side
+
+
+**TCP’S WINDOW MANAGEMENT AND PROBLEMS MOBILE ENVIRONMENTS
+
+*Upon seeing an advertised window size of zero, the sender
+should freeze all re-transmit timers and enter a persist mode
+*This involves sending probes (called the Zero Window Probes
+or ZWPs) until the receiver’s window opens up.
+*Eventually the receiver responds to a ZWP with a non-zero win-
+dow size, and the sender will continue transmission using a win-
+dow size consistent with the advertised value.
+*it should be noted that mobility is distinct from wireless connectivity.
+*This, coupled with
+the TCP’s slow-start mechanism means that the sender unnec-
+essarily holds back, slowly growing the transmission rate, even
+though the receiver often recovers quickly from the temporary,
+short disconnection.
+
+
+**EXISTING SOLUTIONS
+*Snoop
+*I-TCP
+*MTCP
+*explicit bad-state
+notification (EBSN)
+
+*To realize this goal, ideally, there should
+not be any change required at intermediate routers or the sender
+because these are likely to belong to other organizations, mak-
+ing them unavailable for modifications
+
+
+
+**OUR FREEZE-TCP APPROACH
+*The main idea behind Freeze-TCP is to move the onus of signaling 
+an impending disconnection to the client.
+*A mobile node can certainly monitor signal strengths in the wireless antennas
+and detect an impending handoff.
+*In such a case, it can advertise a zero window size, to force the sender into the ZWP mode and
+prevent it from dropping its congestion window.
+*If the receiver can sense an impending disconnection, it
+should try to send out a few (at least one) acknowledgements,
+wherein it’s window size is advertised as zero (ZWA)
+*The question is: how much in advance of the disconnection should the receiver start advertising
+a window size of zero? This period is in a sense the “warning pe-
+riod” prior to disconnection.
+*a reasonable warning period is the round-trip-time
+(RTT).
+*Since the ZWPs are exponentially backed off, there is the pos-
+sibility of substantial idle time after a reconnection.
+*To avoid this idle time, we also
+implement the scheme suggested in [9]. As soon as a connec-
+tion is re-established, the receiver sends 3 copies of the ACK for
+the last data segment it received prior to the disconnection (TR-ACKs).
+*Formulae
+
+
+**RESULTS
+*The important point of all the data is that even when Freeze-
+TCP is not effective, it does not worsen performance by a no-
+ticeable amount.
+*This indicates that the overhead due to the Freeze-
+TCP mechanism is very small: even if it fails to enhance per-
+formance, it will at least render baseline (standard TCP like)
+performance.
+
+
+**DISCUSSION AND CONCLUSION
+*In order to exploit this mechanism, the network stack needs to
+be aware of mobility (at least to some extent). For instance, the
+NIC vendors need to provide some details of their roaming and
+handoff algorithms to TCP code developers.
+*At a more fundamental level, the question is whether it is
+appropriate to restart transmission at the full rate with the old
+window size upon entering a new, unknown environment?
+*Another possible drawback of Freeze-TCP is that it needs
+the receiver to predict impending disconnections.
+*The data indicates that in many cases, a pro-active
+mechanisms such as Freeze-TCP can yield better performance
+than those that simply react after a disconnection occurs.
+*In closing, we would like to point out that true end-to-end
+techniques will become indispensable when IPSEC or other se-
+curity mechanisms are employed to encrypt the IP payloads.

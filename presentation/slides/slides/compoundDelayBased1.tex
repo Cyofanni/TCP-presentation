@@ -1,0 +1,11 @@
+\begin{frame}{Delay-based component design (1)}
+        \begin{itemize}
+		\item A state variable (\texttt{baseRTT}) is maintained as
+		      an estimation of the delay of a packet over the
+		      network path.
+		\item A the start of a connection, \texttt{baseRTT} is updated
+		      to the minimal observed RTT.
+		\item An exponentially smoothed current RTT (\texttt{sRTT}) is also maintained.
+        \end{itemize}
+\end{frame}
+

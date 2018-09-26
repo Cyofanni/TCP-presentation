@@ -1,0 +1,16 @@
+\begin{frame}{Delay-based component design (4)}
+  The delay-based component \texttt{dwnd} is updated following the
+  rules below. \newline \newline $dwnd(t+1)$ =
+  \center
+  \begin{math}
+  	\left\{
+    	\begin{array}{l}
+     		 dwnd (t) + (\alpha*win(t)^k - 1)^+, diff < \gamma\\
+      		 (dwnd(t) - \zeta*diff)^+, diff \geq \gamma\\
+      		 (win(t)*(1-\beta) - cwnd/2)^+, loss\\
+    	\end{array}
+  \right.
+\end{math}
+
+\end{frame}
+

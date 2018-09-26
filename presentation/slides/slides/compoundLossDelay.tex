@@ -1,0 +1,19 @@
+\begin{frame}{Loss-based vs Delay-based}
+	\begin{itemize}
+		\item \textbf{Loss-based} strategies modify the increase/decrease parameters
+		      in order to become more aggressive. Pitfalls:
+			\begin{enumerate}
+				\item an aggressive behavior
+				      causes more packet losses on bottleneck links;
+				\item the throughput of the regular TCP flows is pushed back.
+			\end{enumerate}
+		\item \textbf{Delay-based} strategies
+		      base their decisions on
+		      RTT variations (e.g. \textit{FAST-TCP}). They have:
+		      \begin{enumerate}
+		         \item higher utilization;
+		         \item less self-induced packet losses;
+		         \item better RTT fairness and stabilization.
+		      \end{enumerate}
+	\end{itemize}
+\end{frame}

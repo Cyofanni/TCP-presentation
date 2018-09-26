@@ -1,0 +1,12 @@
+\begin{frame}{The Compound TCP (3)}
+        \begin{itemize}
+		\item A new scalable delay-based component in the 
+		      TCP congestion avoidance algorithm is added. 
+		\item A new state variable is introduced: \texttt{dwnd} 
+		      (\textit{Delay Window}), which controls this delay-based component.
+		\item The \texttt{cwnd} remains the same, controlling the loss-based component. 
+		\item Thus, the sending window is controlled by both \texttt{cwnd} and \texttt{dwnd}.
+	
+        \end{itemize}
+\end{frame}
+

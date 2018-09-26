@@ -1,0 +1,15 @@
+\begin{frame}{Improved Error Recovery for \newline better Energy Efficiency}
+    \begin{itemize}
+	\item The Error Recovery mechanism is not always efficient:
+	      in fact, standard TCP thinks that packet losses always happen due to
+	      \textit{congestion}.
+	\item In case of \textit{infrequent} and \textit{transient} errors,
+	      standard TCP strategy leads to:
+	      \begin{enumerate}
+	      	\item unneeded effective throughput degradation;
+		\item increase in overall connection time.
+	      \end{enumerate}
+	\item Moreover, monitoring network conditions only by means of
+	      packet losses causes major energy wastage.
+    \end{itemize}
+\end{frame}

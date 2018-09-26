@@ -1,0 +1,14 @@
+\begin{frame}{Delay-based component design (3)}
+	\begin{enumerate}
+		\item Without packet losses:
+			$$
+				win (t+1) = win(t) + \alpha*win(t)^k
+			$$
+		\item With packet losses:
+			$$
+				win (t+1) = win(t) * (1 - \beta)
+			$$
+	\end{enumerate}
+	Parameters $\alpha$, $\beta$ and $k$ should be tuned.
+\end{frame}
+

@@ -1,0 +1,12 @@
+\begin{frame}{Standard window management}
+	\begin{itemize}
+		\item When the receiver advertises a zero-size window,
+		      the sender enters the \textbf{persist mode}:
+		      \begin{itemize}
+			    \item \textit{Zero Window Probes} are sent
+				  until the receiver's window opens up;
+			    \item eventually, the receiver sends back a non-zero window size,
+				  and the sender will open its sending window.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}

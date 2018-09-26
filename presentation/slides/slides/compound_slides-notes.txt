@@ -1,0 +1,166 @@
+***A Compound TCP Approach for High-speed and Long Distance Networks***
+
+**Abstract
+*However, standard TCP
+fails to fully utilise the network capacity due to the limitation in its
+conservative congestion control (CC) algorithm.
+*Compound TCP (CTCP) approach,
+which is a synergy of delay-based and loss-based approach.
+*In CTCP, we add a scalable delay-based component into the standard
+TCP Reno congestion avoidance algorithm (i.e., the loss-based
+component).
+
+
+**INTRODUCTION
+*Moving bulk data quickly over high-speed data network is a
+requirement for many applications.
+*it has been reported that TCP substantially underutilises 
+network bandwidth over high-speed and
+long distance networks
+*In high-speed and long distance networks, TCP requires a
+very large window, roughly equal to the bandwidth delay pro-
+duct (BDP), to efficiently utilise the network resource.
+*As an example, Sally et. al. [3],
+pointed out that under a 10Gbps link with 100ms delay, it will
+roughly take one hour for a standard TCP flow to fully utilise
+the link capacity, if no packet is lost or corrupted.
+*One class of approaches modifies the increase/decrease parameters 
+of TCP congestion avoidance algorithm (CAA) and makes it more aggressive.
+*Another class of approaches, by contrast, is delay-based, which makes
+congestion decisions that reduce the transmission rate based on
+RTT variations e.g., FAST TCP
+*[Efficiency] It must improve the throughput of the connection
+to efficiently use the high-speed network link.
+[RTT fairness] It must also have good intra-protocol fairness,
+especially when the competing flows have different RTTs.
+[TCP fairness] It must not reduce the performance of other
+regular TCP flows competing on the same path. This means that
+the high-speed protocols should only make better use of free
+available bandwidth, but not steal bandwidth from other flows.
+*On the other hand, for delay-based approaches,
+although they can achieve high efficiency and good RTT fair-
+ness in a network where the majority flows are delay-based, it is
+difficult to meet the third requirement if most competing flows are loss-based
+*The reason is that delay-based approaches re-
+duce their sending rate when bottleneck queue is built to avoid
+self-induced packet losses. However, this behaviour will encourage 
+loss-based flows to increase their sending rate as they may
+observe less packet losses.
+
+
+**BACKGROUND AND RELATED WORK
+*In a high-speed and
+long delay network, it requires a very large window, e.g. thou-
+sands of packets, to fully utilize the link capacity.
+*With the packet loss rate in real life networks, a
+standard TCP sender may never open its window large enough
+to fully utilize the high-speed link resource.
+*STCP [4] alters TCP’s AIMD congestion avoidance scheme
+to MIMD (multiplicative increase and multiplicative decrease).
+*When an aggressive high-speed variant flow trav-
+erses the bottleneck link with other standard TCP flows, it may
+increase its own share of bandwidth by reducing the throughput
+of other competing TCP flows.
+*The reason is that the aggressive
+high-speed variants will cause much more self-induced packet
+losses on bottleneck links, and therefore push back the through-
+put of the regular TCP flows.
+*One core idea of delay-based congestion avoidance is that the increase of RTT is 
+considered as early congestion, and the sending rate is reduced to
+avoid self-induced buffer overflow
+*Theoretical analysis and
+experiments show that delay-based approaches have better
+properties than pure loss-based approaches, such as higher utili-
+sation, less self-induced packet losses, faster convergence speed,
+better RTT fairness and stabilisation
+
+
+**THE COMPOUND TCP
+*However, as mentioned in previous section, the major weakness
+of delay-based approaches is that they are not competitive to
+loss-based approaches.
+*This scalable delay-based component has a rapid window in-
+crease rule when the network is sensed to be under-utilized and
+gracefully reduces the sending rate once the bottleneck queue is
+built.
+1)CTCP can efficiently use the network resource and
+achieve high link utilization. In theory, CTCP can be very fast
+to obtain free network bandwidth, by adopting a rapid increase
+rule in the delay-based component, e.g. multiplicative increase.
+However, in this paper, we choose CTCP to have similar ag-
+gressiveness to obtain available bandwidth as HSTCP.
+2)CTCP has similar or even improved RTT fairness com-
+pared to regular TCP.
+3)CTCP has good TCP-fairness.
+*To do so, a new state variable is introduced
+in current TCP Control Block (TCB), namely, dwnd (Delay
+Window), which controls this delay-based component in CTCP.
+  The conventional congestion window, cwnd, remains untouched,
+  which controls the loss-based component in CTCP.
+*The update of dwnd will be elaborated in detail in next sub-
+section, while the update of cwnd is in the same way as in the
+regular TCP in the congestion avoidance phase
+*CTCP keeps the same Slow-Start behavior of regular TCP at
+the start-up of a new connection. It is because that we believe
+slow-start, which exponentially increases window, is quick
+enough even for fast and long distance environment that we
+target at
+*We initially set dwnd to zero if the connection is in
+slow-start state, and the delay-based component is effective only
+when the connection is working at congestion avoidance phase.
+
+*This delay-based algorithm should have the following properties.
+Firstly, it should have an aggressive, scalable increase rule when
+the network is sensed to be under-utilized. Secondly, it should
+also reduce sending rate accordingly when the network is sensed
+to be fully utilized. By reducing its sending rate, the delay-based
+component yields ways for competing TCP flows to ensure TCP
+fairness of CTCP. Lastly, it should also react to packet losses. It
+is because packet losses may still be an indicator of heavy con-
+gestion, and hence reducing sending rate upon packet loss is a
+necessary conservative behaviour to avoid congestion collapse
+*An early congestion is detected if the number of packets in the queue is larger
+than a threshold γ.
+*Therefore, we want γ to be small, since it requires less
+buffer size on the bottleneck to ensure TCP fairness. On the
+other hand, we can not set γ to be too small, since it may cause
+false detection on early congestion and adversely affect the
+throughput.
+*Loss-based component (i.e. a standard TCP).
+In above control laws, we assume the loss is detected by three
+duplicate ACKs. If a retransmission timeout occurs, dwnd
+should be reset to zero and the delay-based component is dis-
+abled. It is because that after a timeout, the TCP sender is put
+into slow-start state.
+
+
+**ANALYSIS OF CTCP
+*Efficiency property
+We first demonstrate that two CTCP flows with same RTT
+converge to their fair shares and then study its RTT fairness
+1)Two CTCP flows converge to fair share under
+the network model as shown in Figure 3 with same round trip
+delay.
+     We use Jain’s fairness index
+2) Let Th1 and Th2 present the throughput of two
+CTCP flows with round trip time as R1 and R2, respectively.
+Then, the following inequality satisfied
+*Convergence and RTT fairness
+
+*TCP Fairness
+Definition 1: bandwidth stolen. Let P be the aggregated
+throughput of m regular TCP flows when they compete with
+another l regular TCP flows. Let Q be the aggregated through-
+put of m regular TCP flows when they compete with another l
+high-speed protocol flows in the same network topology.
+Theorem 3: With the system model shown in Figure 3, when
+B/(m+l) > γ, CTCP will not steal bandwidth from competing regu-
+lar TCP flows.
+*Therefore, the m regular TCP flows will receive the same throughput no matter they compete with l other TCP flows or l CTCP flows
+Theorem 3 shows that CTCP is fair to TCP flows in term
+of not reducing TCP’s throughput when the network is suffi-
+ciently buffered. However, CTCP does have higher throughput
+than regular TCP. It is because CTCP can make better use of
+free bandwidth that is currently not utilized.
+
+

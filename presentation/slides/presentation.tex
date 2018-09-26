@@ -1,0 +1,93 @@
+% Adapted from UH Manoa theme by:
+% UH Manoa presentation theme for beamer
+% Jeff Delmerico <jeffdelmerico@gmail.com> 2012
+% https://github.com/jeffdelmerico/UH_Beamer_Theme.git
+
+
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\usetheme{PD}
+
+\usepackage[utf8]{inputenc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{helvet}
+\usepackage{tikz}
+\usepackage{listings,lstautogobble}
+\usepackage{syntax}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usetikzlibrary{tikzmark,fit,decorations.pathreplacing}
+%\usepackage{enumerate}
+
+\title{TCP flavors for mobile and high-speed environments}
+\subtitle{\newline Freeze-TCP, TCP-Probing and Compound TCP}
+\author{Giovanni Mazzocchin}
+\date{September 20th, 2018}
+\institute{Università degli Studi di Padova}
+
+\lstset{
+	autogobble=true
+}
+
+\setlength{\grammarindent}{3em}
+
+\begin{document}
+
+\newcommand{\turnOffNumbers}{true} %hide frame numbers in footer
+
+\begin{frame}[noframenumbering]
+\titlepage
+\end{frame}
+
+\let\turnOffNumbers\empty
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+\section{Scenario}
+\input{slides/scenario}
+
+
+\section{Freeze-TCP}
+\input{slides/freezeIntroduction}
+\input{slides/freezeWindowManagement}
+\input{slides/freezeMobileIssues}
+\input{slides/freezeApproach1}
+\input{slides/freezeApproach2}
+\input{slides/freezeApproach3}
+\input{slides/freezeApproach4}
+
+\section{TCP-Probing}
+\input{slides/probingIntroduction}
+\input{slides/probingErrorEnergy}
+\input{slides/probingApproach}
+\input{slides/probingProbeCycle1}
+\input{slides/probingProbeCycle2}
+\input{slides/probingProbeCycle3}
+\input{slides/probingDiagram}
+
+\section{Compound TCP}
+\input{slides/compoundIntroduction}
+\input{slides/compoundBackground}
+\input{slides/compoundLossDelay}
+\input{slides/compoundMain1}
+\input{slides/compoundMain2}
+\input{slides/compoundMain3}
+\input{slides/compoundMain4}
+\input{slides/compoundDelayBased1}
+\input{slides/compoundDelayBased2}
+\input{slides/compoundDelayBased3}
+\input{slides/compoundDelayBased4}
+
+\section{Conclusions}
+%\input{slides/conclusione}
+%\input{slides/problemiRunTime}
+
+\appendix
+\section{Bibliography}
+\input{slides/bibl}
+\makethanks
+%\renewcommand{\turnOffNumbers}{true} %hide frame numbers in footer
+
+\end{document}

@@ -1,0 +1,14 @@
+\begin{frame}{The Compound TCP (4)}
+        \begin{itemize}
+		\item \texttt{Sending window = min(cwnd + dwnd, awnd)}.
+		\item The \texttt{cwnd} is updated in the same way as in
+		      regular TCP's congestion avoidance.
+		\item The \textit{Slow-Start} behavior of regular TCP is kept at
+		      the start-up of a new connection. In fact,
+		      \textit{Slow-Start} is quick
+		      enough also for fast and long distance environments.
+		\item The delay-based component comes into play
+		      in the congestion avoidance phase.
+        \end{itemize}
+\end{frame}
+
